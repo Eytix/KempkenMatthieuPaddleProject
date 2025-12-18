@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PaddleAngular
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
@@ -57,3 +58,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+# KempkenMatthieuPaddleProject
+>>>>>>> 4537617d950160c00a99c16881c922703824237f
