@@ -1,3 +1,16 @@
+<mat-sidenav-container class="app-container">
 
-## router outlet permet de mettre les info routeurs
-<router-outlet />
+  <mat-sidenav>
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <app-menu></app-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-header></app-header>
+    <app-content></app-content>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
