@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
+import {Groundservice} from '../ground/groundservice';
 
 @Component({
   selector: 'app-home',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './home.css',
 })
 export class Home {
+  groundService = inject(Groundservice);
 
+  groundCount = this.groundService.groundCount;
 }
