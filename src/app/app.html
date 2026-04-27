@@ -1,6 +1,6 @@
 <mat-sidenav-container class="app-container">
 
-  <mat-sidenav [opened]="layoutService.sideNavOpen()" mode="over">
+  <mat-sidenav [opened]="layoutService.sideNavOpen()" [mode]="layoutService.isDesktop() ? 'side' : 'over'">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <app-menu></app-menu>
