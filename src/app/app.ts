@@ -3,9 +3,9 @@ import {Menu} from './views/layout/menu/menu';
 import {Header} from './views/layout/header/header';
 import {Content} from './views/layout/content/content';
 import {Footer} from './views/layout/footer/footer';
-import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
-import {MatToolbar} from '@angular/material/toolbar';
-import {MatNavList} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
 import {LayoutService} from './views/layout/layout.service';
 
 @Component({
@@ -16,11 +16,9 @@ import {LayoutService} from './views/layout/layout.service';
     Header,
     Content,
     Footer,
-    MatSidenav,
-    MatToolbar,
-    MatNavList,
-    MatSidenavContent,
-    MatSidenavContainer,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']

@@ -1,16 +1,16 @@
 import {Component, inject, signal} from '@angular/core';
-import {MatToolbar} from '@angular/material/toolbar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
-import {MatIconButton} from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {LayoutService} from '../layout.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    MatToolbar,
+    MatToolbarModule,
     MatIconModule,
-    MatIconButton
+    MatButtonModule
   ],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
