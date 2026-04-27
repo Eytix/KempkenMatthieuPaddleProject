@@ -20,13 +20,15 @@ span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 22px;
-  border-radius: 12px;
+  padding: 8px 14px;
+  border-radius: 8px;
   background: #ffffff;
   color: #1976d2;
   border: 1px solid rgba(25, 118, 210, 0.16);
   text-decoration: none;
+  font-size: 0.95rem;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
 }
 
 .ground-link:hover {
