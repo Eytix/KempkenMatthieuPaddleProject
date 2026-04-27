@@ -6,13 +6,14 @@ import {LayoutService} from '../layout.service';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
     MatToolbar,
     MatIconModule,
     MatIconButton
   ],
   templateUrl: './header.html',
-  styleUrl: './header.css',
+  styleUrls: ['./header.css'],
 })
 export class Header {
   layoutService = inject(LayoutService);

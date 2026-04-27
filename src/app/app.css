@@ -1,0 +1,7 @@
+:host, .app-container, mat-sidenav-content {
+  min-height: 100vh;
+}
+
+mat-sidenav {
+  width: 250px;
+}

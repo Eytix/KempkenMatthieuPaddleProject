@@ -1,5 +1,8 @@
-import {computed, Signal, inject} from '@angular/core';
+import {computed, inject, Injectable, Signal} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class Groundservice {
 
   private stringwait() {

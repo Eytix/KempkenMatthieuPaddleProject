@@ -3,11 +3,12 @@ import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-content',
+  standalone: true,
   imports: [
     RouterOutlet
   ],
   templateUrl: './content.html',
-  styleUrl: './content.css',
+  styleUrls: ['./content.css'],
 })
 export class Content {
 

@@ -5,13 +5,14 @@ import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-menu',
+  standalone: true,
   imports: [
     MatListItem,
     RouterLink,
     MatIcon
   ],
   templateUrl: './menu.html',
-  styleUrl: './menu.css'
+  styleUrls: ['./menu.css']
 })
 export class Menu {
 

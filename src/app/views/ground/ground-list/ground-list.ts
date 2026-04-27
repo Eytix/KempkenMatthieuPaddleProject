@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-ground-list',
+  standalone: true,
   imports: [],
   templateUrl: './ground-list.html',
-  styleUrl: './ground-list.css',
+  styleUrls: ['./ground-list.css'],
 })
 export class GroundList {
 
