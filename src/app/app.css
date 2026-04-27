@@ -2,6 +2,29 @@
   min-height: 100vh;
 }
 
+:host {
+  display: block;
+  background: #f3f6fb;
+}
+
+.app-container {
+  min-height: 100vh;
+}
+
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+}
+
 mat-sidenav {
   width: 250px;
+  padding-top: 8px;
+}
+
+mat-sidenav mat-toolbar {
+  margin-bottom: 8px;
+}
+
+app-content {
+  flex: 1;
 }

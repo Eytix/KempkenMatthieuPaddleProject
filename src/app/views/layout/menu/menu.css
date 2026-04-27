@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  padding: 4px 0;
+}
+
+a[mat-list-item] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin: 4px 8px;
+  border-radius: 12px;
+}
+
+a[mat-list-item]:hover {
+  background-color: rgba(25, 118, 210, 0.08);
+}
+
+mat-icon {
+  margin-right: 8px;
+}

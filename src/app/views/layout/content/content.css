@@ -1,5 +1,15 @@
 .app-content {
-  padding: 16px;
+  padding: 24px;
   min-height: calc(100vh - 128px); /* adjust for header + footer */
   box-sizing: border-box;
+  background: #ffffff;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(31, 45, 61, 0.07);
+}
+
+.app-content > * + * {
+  margin-top: 20px;
 }
