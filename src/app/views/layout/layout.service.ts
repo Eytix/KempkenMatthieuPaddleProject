@@ -1,4 +1,4 @@
-import {inject, Injectable, linkedSignal} from '@angular/core';
+import {inject, Injectable, effect, signal} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {map} from 'rxjs';
@@ -8,22 +8,26 @@ import {map} from 'rxjs';
 })
 export class LayoutService {
 
-
-
   private readonly breakPointObserver = inject(BreakpointObserver);
   readonly isDesktop = toSignal(
     this.breakPointObserver
       .observe([Breakpoints.Tablet, Breakpoints.Large, Breakpoints.XLarge])
-      .pipe(map(result => result.matches)),{initialValue: false}
+      .pipe(map(result => result.matches)), { initialValue: false }
   );
 
-  sideNavOpen= linkedSignal(this.isDesktop);
+  sideNavOpen = signal(false);
 
   constructor() {
-
+    effect(() => {
+      if (this.isDesktop()) {
+        this.sideNavOpen.set(true);
+      } else {
+        this.sideNavOpen.set(false);
+      }
+    });
   }
 
   toggleMenu() {
-    this.sideNavOpen.update(value => !value)
+    this.sideNavOpen.update(value => !value);
   }
 }
