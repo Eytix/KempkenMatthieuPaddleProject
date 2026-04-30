@@ -19,7 +19,7 @@ export class MemberService {
       phone: '+33612345678',
       createdAt: new Date(),
       updatedAt: new Date(),
-      balance: 0
+      balance: 500
     },
     {
       id: 'S0001',
@@ -31,7 +31,7 @@ export class MemberService {
       siteId: 'site-001',
       createdAt: new Date(),
       updatedAt: new Date(),
-      balance: 0
+      balance: 15
     },
     {
       id: 'L0001',
@@ -41,7 +41,7 @@ export class MemberService {
       lastName: 'Player',
       createdAt: new Date(),
       updatedAt: new Date(),
-      balance: 0
+      balance: 10
     }
   ]);
 
