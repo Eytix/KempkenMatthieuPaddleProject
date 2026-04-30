@@ -146,6 +146,10 @@ export class CreateMatch {
     }
 
     const member = user as Member;
+    if (member.lastReservationDateBlocked && new Date(member.lastReservationDateBlocked) > new Date()) {
+      this.errorMessage = `Votre compte est bloqué jusqu'au ${new Date(member.lastReservationDateBlocked).toLocaleDateString()}.`;
+      return;
+    }
 
     if (!this.canCreate) {
       this.errorMessage = 'Veuillez compléter tous les champs.';

@@ -1,0 +1,37 @@
+<div class="space-y-6">
+  <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+    <h2 class="text-2xl font-semibold mb-2">Gestion des paiements</h2>
+    <p class="text-sm text-gray-600">Suivez les paiements, marquez-les comme réglés ou appliquez une pénalité.</p>
+  </div>
+
+  <div *ngIf="payments().length; else noPayments" class="space-y-4">
+    <div *ngFor="let payment of payments()" class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <div class="text-sm text-gray-500">Match {{ payment.matchId }} · Membre {{ payment.memberId }}</div>
+          <h3 class="text-xl font-semibold">{{ payment.amount }}€</h3>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <span [ngClass]="{
+              'status-paid': payment.status === paymentStatus.PAID,
+              'status-pending': payment.status === paymentStatus.PENDING,
+              'status-failed': payment.status === paymentStatus.FAILED
+            }">
+            {{ payment.status }}
+          </span>
+          <span class="text-gray-500">Due le {{ payment.dueDate.toDateString() }}</span>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button class="btn-primary" type="button" (click)="markPaid(payment.id)">Payé</button>
+        <button class="btn-failed" type="button" (click)="markFailed(payment.id)">Échoué</button>
+        <button class="btn-danger" type="button" [disabled]="!isOverdue(payment)" (click)="applyPenalty(payment.id)">Pénalité</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noPayments>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center text-gray-600">Aucun paiement enregistré pour le moment.</div>
+  </ng-template>
+</div>

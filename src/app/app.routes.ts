@@ -9,6 +9,7 @@ import { CreateMatch } from './views/user/create-match/create-match';
 import { AdminSiteManagement } from './views/admin/admin-site-management';
 import { AdminMatchManagement } from './views/admin/admin-match-management';
 import { AdminMemberManagement } from './views/admin/admin-member-management';
+import { AdminPaymentManagement } from './views/admin/admin-payment-management';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -31,7 +32,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'sites', pathMatch: 'full' },
       { path: 'sites', component: AdminSiteManagement },
       { path: 'matches', component: AdminMatchManagement },
-      { path: 'members', component: AdminMemberManagement }
+      { path: 'members', component: AdminMemberManagement },
+      { path: 'payments', component: AdminPaymentManagement }
     ]
   }
 ];

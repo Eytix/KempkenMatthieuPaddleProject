@@ -28,7 +28,16 @@ export class PublicMatches {
 
   canJoin(matchId: string) {
     const match = this.publicMatches().find(m => m.id === matchId);
-    return match ? match.players.length < 4 && !!this.currentUser() : false;
+    const user = this.currentUser();
+    if (!match || !user) {
+      return false;
+    }
+
+    if ('lastReservationDateBlocked' in user && user.lastReservationDateBlocked && new Date(user.lastReservationDateBlocked) > new Date()) {
+      return false;
+    }
+
+    return match.players.length < 4;
   }
 
   getPaymentStatusBadge(status: PaymentStatus) {

@@ -1,6 +1,8 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { Match, Member } from '../models';
 import { MatchStatus, PaymentStatus, MemberType, MatchType } from '../models/enums';
+import { PaymentService } from './payment.service';
+import { MemberService } from './member.service';
 
 /**
  * MatchService - Gestion des matches/réservations
@@ -9,6 +11,8 @@ import { MatchStatus, PaymentStatus, MemberType, MatchType } from '../models/enu
   providedIn: 'root'
 })
 export class MatchService {
+  private paymentService = inject(PaymentService);
+  private memberService = inject(MemberService);
   private matches = signal<Match[]>([
     {
       id: 'match-001',
@@ -129,7 +133,27 @@ export class MatchService {
 
   createMatch(match: Match) {
     this.matches.update(matches => [...matches, match]);
+    this.createPaymentsForMatch(match);
     return match.id;
+  }
+
+  private createPaymentsForMatch(match: Match) {
+    const dueDate = new Date(match.date);
+    dueDate.setDate(dueDate.getDate() - 1);
+
+    match.players.forEach(player => {
+      const paymentId = `payment-${match.id}-${player.memberId}-${Date.now()}`;
+      this.paymentService.createPayment({
+        id: paymentId,
+        matchId: match.id,
+        memberId: player.memberId,
+        amount: match.costPerPlayer,
+        status: PaymentStatus.PENDING,
+        dueDate,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
+    });
   }
 
   updateMatch(matchId: string, updates: Partial<Match>) {
@@ -141,8 +165,8 @@ export class MatchService {
   addPlayerToMatch(matchId: string, member: Member) {
     this.matches.update(matches =>
       matches.map(m => {
-        if (m.id === matchId && m.players.length < 4) {
-          return {
+        if (m.id === matchId && m.players.length < 4 && !m.players.some(p => p.memberId === member.id)) {
+          const updatedMatch = {
             ...m,
             players: [
               ...m.players,
@@ -154,10 +178,29 @@ export class MatchService {
               }
             ] as any
           };
+          this.createPaymentForPlayer(updatedMatch, member);
+          return updatedMatch;
         }
         return m;
       })
     );
+  }
+
+  private createPaymentForPlayer(match: Match, member: Member) {
+    const dueDate = new Date(match.date);
+    dueDate.setDate(dueDate.getDate() - 1);
+    const paymentId = `payment-${match.id}-${member.id}-${Date.now()}`;
+
+    this.paymentService.createPayment({
+      id: paymentId,
+      matchId: match.id,
+      memberId: member.id,
+      amount: match.costPerPlayer,
+      status: PaymentStatus.PENDING,
+      dueDate,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
   }
 
   removePlayerFromMatch(matchId: string, memberId: string) {
