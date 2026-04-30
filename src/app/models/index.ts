@@ -41,6 +41,7 @@ export interface Terrain {
   siteId: string;
   name: string;                  // Terrain 1, Terrain 2, etc.
   description?: string;
+  pricePerHour: number;          // Prix à l'heure (en euros)
   createdAt: Date;
   updatedAt: Date;
 }
@@ -72,8 +73,8 @@ export interface Match {
   type: MatchType;               // PRIVATE ou PUBLIC
   status: MatchStatus;           // PENDING, CONFIRMED, COMPLETED, CANCELLED
   players: MatchPlayer[];        // 4 joueurs max
-  cost: number;                  // 60€ divisé par 4 joueurs
-  costPerPlayer: number;         // 60€ / 4 = 15€
+  cost: number;                  // Coût total du match
+  costPerPlayer: number;         // Coût par joueur
   closedDays: Date[];            // Jours de fermeture
   createdAt: Date;
   updatedAt: Date;

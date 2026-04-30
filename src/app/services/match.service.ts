@@ -3,6 +3,7 @@ import { Match, Member } from '../models';
 import { MatchStatus, PaymentStatus, MemberType, MatchType } from '../models/enums';
 import { PaymentService } from './payment.service';
 import { MemberService } from './member.service';
+import { TerrainService } from './terrain.service';
 
 /**
  * MatchService - Gestion des matches/réservations
@@ -13,6 +14,7 @@ import { MemberService } from './member.service';
 export class MatchService {
   private paymentService = inject(PaymentService);
   private memberService = inject(MemberService);
+  private terrainService = inject(TerrainService);
   private matches = signal<Match[]>([
     {
       id: 'match-001',
@@ -132,9 +134,33 @@ export class MatchService {
   }
 
   createMatch(match: Match) {
+    if (this.hasBookingConflict(match)) {
+      return null;
+    }
     this.matches.update(matches => [...matches, match]);
     this.createPaymentsForMatch(match);
+    this.memberService.updateBalance(match.organizer.id, -match.cost);
     return match.id;
+  }
+
+  hasBookingConflict(match: Match): boolean {
+    const dateStr = new Date(match.date).toISOString().split('T')[0];
+    return this.matches().some(m => {
+      const existingDateStr = new Date(m.date).toISOString().split('T')[0];
+      if (m.terrainId !== match.terrainId || existingDateStr !== dateStr) {
+        return false;
+      }
+      const existingStart = this.timeToMinutes(m.startTime);
+      const existingEnd = this.timeToMinutes(m.endTime);
+      const newStart = this.timeToMinutes(match.startTime);
+      const newEnd = this.timeToMinutes(match.endTime);
+      return !(newEnd <= existingStart || newStart >= existingEnd);
+    });
+  }
+
+  private timeToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
   }
 
   private createPaymentsForMatch(match: Match) {

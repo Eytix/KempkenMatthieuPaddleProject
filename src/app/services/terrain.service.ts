@@ -14,6 +14,7 @@ export class TerrainService {
       siteId: 'site-001',
       name: 'Terrain 1',
       description: 'Terrain principal',
+      pricePerHour: 60,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -22,6 +23,7 @@ export class TerrainService {
       siteId: 'site-001',
       name: 'Terrain 2',
       description: 'Terrain secondaire',
+      pricePerHour: 50,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -30,6 +32,7 @@ export class TerrainService {
       siteId: 'site-002',
       name: 'Terrain 1',
       description: 'Terrain premium',
+      pricePerHour: 75,
       createdAt: new Date(),
       updatedAt: new Date()
     }

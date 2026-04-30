@@ -57,7 +57,20 @@ export class CreateMatch {
   }
 
   get costPerPlayer() {
-    return this.cost / this.playersCount;
+    const terrain = this.selectedTerrain;
+    if (!terrain) {
+      return 0;
+    }
+    const totalCost = (terrain.pricePerHour * 1.5) / this.playersCount;
+    return Math.round(totalCost * 100) / 100;
+  }
+
+  get totalCost() {
+    const terrain = this.selectedTerrain;
+    if (!terrain) {
+      return 0;
+    }
+    return Math.round(terrain.pricePerHour * 1.5 * 100) / 100;
   }
 
   get availableTerrains() {
@@ -162,9 +175,20 @@ export class CreateMatch {
       return;
     }
 
+    const terrain = this.selectedTerrain;
+    if (!terrain) {
+      this.errorMessage = 'Terrain invalide.';
+      return;
+    }
+
     const endTime = this.calculateEndTime(this.selectedStartTime);
     if (!endTime) {
       this.errorMessage = 'Horaire invalide.';
+      return;
+    }
+
+    if (member.balance < this.totalCost) {
+      this.errorMessage = `Solde insuffisant. Vous avez ${member.balance}€, il vous faut ${this.totalCost}€.`;
       return;
     }
 
@@ -180,7 +204,7 @@ export class CreateMatch {
         return selected ? {
           memberId: selected.id,
           member: selected,
-          status: 'PENDING' as const,
+          status: 'CONFIRMED' as const,
           paymentStatus: 'PENDING' as const
         } : null;
       }).filter(Boolean) as any
@@ -196,14 +220,19 @@ export class CreateMatch {
       type: this.matchType,
       status: MatchStatus.PENDING,
       players,
-      cost: 60,
-      costPerPlayer: 15,
+      cost: this.totalCost,
+      costPerPlayer: this.costPerPlayer,
       closedDays: site.closedDays,
       createdAt: new Date(),
       updatedAt: new Date()
     };
 
-    this.matchService.createMatch(match);
+    const createdId = this.matchService.createMatch(match);
+    if (!createdId) {
+      this.errorMessage = 'Conflit de réservation : un match existe déjà à cet horaire sur ce terrain.';
+      return;
+    }
+
     this.successMessage = 'Match créé avec succès.';
     this.resetForm();
   }
