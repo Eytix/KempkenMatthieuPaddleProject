@@ -1,0 +1,56 @@
+<div class="space-y-4">
+  <div class="bg-white p-6 rounded-xl shadow-sm">
+    <h2 class="text-2xl font-semibold mb-3">Matches publics</h2>
+    <p class="text-sm text-gray-600">Inscrivez-vous aux rencontres publiques disponibles.</p>
+  </div>
+
+  <div *ngIf="publicMatches().length; else noPublicMatches" class="grid gap-4">
+    <div *ngFor="let match of publicMatches()" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h3 class="text-xl font-semibold">Match {{ match.id }}</h3>
+          <p class="text-sm text-gray-600">Terrain : {{ match.terrainId }} · {{ match.type }}</p>
+        </div>
+        <p class="text-lg font-bold text-indigo-600">{{ match.costPerPlayer }}€ / joueur</p>
+      </div>
+
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+        <div>
+          <div class="font-semibold">Date</div>
+          <div>{{ match.date.toDateString() }}</div>
+        </div>
+        <div>
+          <div class="font-semibold">Horaire</div>
+          <div>{{ match.startTime }} - {{ match.endTime }}</div>
+        </div>
+        <div>
+          <div class="font-semibold">Inscrits</div>
+          <div>{{ match.players.length }} / 4</div>
+        </div>
+        <div>
+          <div class="font-semibold">État</div>
+          <div>{{ match.status }}</div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="flex flex-wrap gap-2">
+          <span *ngFor="let player of match.players" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">{{ player.member.firstName }}</span>
+        </div>
+        <button
+          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700 disabled:opacity-50"
+          [disabled]="!canJoin(match.id)
+          "
+          (click)="joinMatch(match.id)">
+          Joindre
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noPublicMatches>
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-dashed border-gray-300 text-gray-600 text-center">
+      Aucun match public disponible pour le moment.
+    </div>
+  </ng-template>
+</div>

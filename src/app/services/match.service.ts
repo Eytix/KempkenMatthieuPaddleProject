@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Match, Member } from '../models';
-import { MatchStatus, PaymentStatus } from '../models/enums';
+import { MatchStatus, PaymentStatus, MemberType, MatchType } from '../models/enums';
 
 /**
  * MatchService - Gestion des matches/réservations
@@ -9,7 +9,96 @@ import { MatchStatus, PaymentStatus } from '../models/enums';
   providedIn: 'root'
 })
 export class MatchService {
-  private matches = signal<Match[]>([]);
+  private matches = signal<Match[]>([
+    {
+      id: 'match-001',
+      organizer: {
+        id: 'G0001',
+        type: MemberType.GLOBAL,
+        email: 'john@paddel.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        phone: '+33612345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        balance: 0
+      },
+      terrainId: 'terrain-001',
+      date: new Date('2026-05-15'),
+      startTime: '10:00',
+      endTime: '11:30',
+      type: MatchType.PUBLIC,
+      status: MatchStatus.PENDING,
+      players: [
+        {
+          memberId: 'G0001',
+          member: {
+            id: 'G0001',
+            type: MemberType.GLOBAL,
+            email: 'john@paddel.com',
+            firstName: 'John',
+            lastName: 'Doe',
+            phone: '+33612345678',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            balance: 0
+          },
+          status: 'CONFIRMED',
+          paymentStatus: PaymentStatus.PAID
+        }
+      ],
+      cost: 60,
+      costPerPlayer: 15,
+      closedDays: [],
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      id: 'match-002',
+      organizer: {
+        id: 'S0001',
+        type: MemberType.SITE,
+        email: 'marie@paddel.com',
+        firstName: 'Marie',
+        lastName: 'Smith',
+        phone: '+33687654321',
+        siteId: 'site-001',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        balance: 0
+      },
+      terrainId: 'terrain-002',
+      date: new Date('2026-05-16'),
+      startTime: '14:00',
+      endTime: '15:30',
+      type: MatchType.PRIVATE,
+      status: MatchStatus.PENDING,
+      players: [
+        {
+          memberId: 'S0001',
+          member: {
+            id: 'S0001',
+            type: MemberType.SITE,
+            email: 'marie@paddel.com',
+            firstName: 'Marie',
+            lastName: 'Smith',
+            phone: '+33687654321',
+            siteId: 'site-001',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            balance: 0
+          },
+          status: 'CONFIRMED',
+          paymentStatus: PaymentStatus.PAID
+        }
+      ],
+      cost: 60,
+      costPerPlayer: 15,
+      closedDays: [],
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+  ]);
 
   allMatches = computed(() => this.matches());
 

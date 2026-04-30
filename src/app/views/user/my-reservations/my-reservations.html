@@ -1,0 +1,54 @@
+<div class="space-y-4">
+  <ng-container *ngIf="currentUser(); else notLogged">
+    <div class="bg-white p-6 rounded-xl shadow-sm">
+      <h2 class="text-2xl font-semibold mb-3">Mes réservations</h2>
+      <p class="text-sm text-gray-600">Affiche les matches créés ou rejoints par votre compte.</p>
+    </div>
+
+    <div *ngIf="reservations().length; else noReservations" class="grid gap-4">
+      <div *ngFor="let match of reservations()" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h3 class="text-xl font-semibold">Match {{ match.id }}</h3>
+            <p class="text-sm text-gray-600">Type : {{ match.type }} · Statut : {{ match.status }}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-lg font-bold text-indigo-600">{{ match.cost }}€</p>
+            <p class="text-sm text-gray-500">{{ match.players.length }} joueur(s) inscrit(s)</p>
+          </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+          <div>
+            <div class="font-semibold">Terrain</div>
+            <div>{{ match.terrainId }}</div>
+          </div>
+          <div>
+            <div class="font-semibold">Date</div>
+            <div>{{ match.date.toDateString() }}</div>
+          </div>
+          <div>
+            <div class="font-semibold">Horaire</div>
+            <div>{{ match.startTime }} - {{ match.endTime }}</div>
+          </div>
+          <div>
+            <div class="font-semibold">Responsable</div>
+            <div>{{ match.organizer.firstName }} {{ match.organizer.lastName }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noReservations>
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-dashed border-gray-300 text-gray-600 text-center">
+        Vous n'avez pas encore de réservations.
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #notLogged>
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-gray-700 text-center">
+      <p class="font-semibold">Veuillez vous connecter pour voir vos réservations.</p>
+    </div>
+  </ng-template>
+</div>

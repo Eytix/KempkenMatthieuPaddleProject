@@ -1,0 +1,7 @@
+.public-match-card {
+  transition: box-shadow 0.2s ease;
+}
+
+.public-match-card:hover {
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}

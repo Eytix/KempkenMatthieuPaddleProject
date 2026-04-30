@@ -1,5 +1,39 @@
 <div class="p-8">
-  <h1 class="text-3xl font-bold mb-4">Tableau de Bord Utilisateur</h1>
-  <p class="text-gray-600">Bienvenue sur votre espace personnel</p>
-  <router-outlet></router-outlet>
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-bold mb-2">Espace utilisateur</h1>
+      <p class="text-gray-600">Voir vos réservations et les matches publics disponibles.</p>
+    </div>
+
+    <div *ngIf="isAuthenticated(); else loginPanel" class="flex items-center gap-3">
+      <div class="rounded-xl bg-gray-100 px-4 py-3 text-sm text-gray-700">
+        Connecté en tant que {{ currentUser()?.firstName }} {{ currentUser()?.lastName }} ({{ currentUser()?.id }})
+      </div>
+      <button class="rounded-lg border border-gray-300 px-4 py-2 text-sm hover:bg-gray-100" (click)="logout()">
+        Déconnexion
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loginPanel>
+    <div class="mt-6 bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+      <h2 class="text-xl font-semibold mb-3">Choisissez un compte de test</h2>
+      <div class="grid gap-3 sm:grid-cols-3">
+        <button *ngFor="let user of users()" class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-left hover:bg-blue-100" (click)="login(user)">
+          <div class="font-semibold text-blue-800">{{ user.firstName }} {{ user.lastName }}</div>
+          <div class="text-sm text-gray-600">{{ user.id }} - {{ user.type }}</div>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <div *ngIf="isAuthenticated()" class="mt-8 bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+    <nav class="flex gap-3 flex-wrap">
+      <a routerLink="reservations" class="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes réservations</a>
+      <a routerLink="public-matches" class="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Matches publics</a>
+    </nav>
+    <div class="mt-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
