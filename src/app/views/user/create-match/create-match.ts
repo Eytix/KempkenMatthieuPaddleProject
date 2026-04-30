@@ -41,20 +41,51 @@ export class CreateMatch {
   successMessage = '';
   errorMessage = '';
 
+  readonly cost = 60;
+  readonly maxPlayers = 3;
+
+  get selectedSite() {
+    return this.siteService.getSiteById(this.selectedSiteId)();
+  }
+
+  get selectedTerrain() {
+    return this.terrainService.getTerrainById(this.selectedTerrainId)();
+  }
+
+  get playersCount() {
+    return 1 + this.selectedPlayers.length;
+  }
+
+  get costPerPlayer() {
+    return this.cost / this.playersCount;
+  }
+
   get availableTerrains() {
     return this.selectedSiteId ? this.terrainService.getTerrainsBySite(this.selectedSiteId)() : [];
   }
 
+  get isClosedDay() {
+    if (!this.selectedDate || !this.selectedSite) {
+      return false;
+    }
+
+    const selectedDay = this.selectedDate;
+    return this.selectedSite.closedDays.some(closedDate => closedDate.toISOString().split('T')[0] === selectedDay);
+  }
+
   get availableTimes() {
-    const site = this.siteService.getSiteById(this.selectedSiteId)();
-    if (!site) {
+    if (!this.selectedSite || !this.selectedDate || this.isClosedDay) {
       return [];
     }
-    return this.generateAvailableTimes(site.openingHour, site.closingHour);
+    return this.generateAvailableTimes(this.selectedSite.openingHour, this.selectedSite.closingHour);
+  }
+
+  get endTime() {
+    return this.calculateEndTime(this.selectedStartTime);
   }
 
   get canCreate() {
-    return !!this.selectedSiteId && !!this.selectedTerrainId && !!this.selectedDate && !!this.selectedStartTime;
+    return !!this.selectedSiteId && !!this.selectedTerrainId && !!this.selectedDate && !!this.selectedStartTime && !this.isClosedDay;
   }
 
   get minBookingDate() {
@@ -84,9 +115,24 @@ export class CreateMatch {
     const selected = this.selectedPlayers;
     if (selected.includes(memberId)) {
       this.selectedPlayers = selected.filter(id => id !== memberId);
-    } else if (selected.length < 3) {
+    } else if (selected.length < this.maxPlayers) {
       this.selectedPlayers = [...selected, memberId];
     }
+  }
+
+  onSiteChanged(siteId: string) {
+    this.selectedSiteId = siteId;
+    this.selectedTerrainId = '';
+    this.selectedStartTime = '';
+    this.errorMessage = '';
+    this.successMessage = '';
+  }
+
+  onDateChanged(date: string) {
+    this.selectedDate = date;
+    this.selectedStartTime = '';
+    this.errorMessage = '';
+    this.successMessage = '';
   }
 
   createMatch() {
