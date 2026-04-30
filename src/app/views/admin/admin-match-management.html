@@ -1,0 +1,47 @@
+<div class="space-y-6">
+  <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+    <h2 class="text-2xl font-semibold mb-2">Gestion des matches</h2>
+    <p class="text-sm text-gray-600">Visualisez et mettez à jour le statut des matches existants.</p>
+  </div>
+
+  <div *ngIf="matches().length; else noMatches" class="grid gap-4">
+    <div *ngFor="let match of matches()" class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 class="text-xl font-semibold">{{ match.id }}</h3>
+          <p class="text-sm text-gray-600">Organisateur : {{ match.organizer.firstName }} {{ match.organizer.lastName }}</p>
+        </div>
+        <span class="badge">{{ match.status }}</span>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3 text-sm text-gray-700">
+        <div>
+          <div class="font-semibold">Date</div>
+          <div>{{ match.date.toDateString() }}</div>
+        </div>
+        <div>
+          <div class="font-semibold">Horaire</div>
+          <div>{{ match.startTime }} - {{ match.endTime }}</div>
+        </div>
+        <div>
+          <div class="font-semibold">Terrain</div>
+          <div>{{ match.terrainId }}</div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="status-button" (click)="changeStatus(match.id, matchStatus.PENDING)">Pending</button>
+          <button type="button" class="status-button" (click)="changeStatus(match.id, matchStatus.CONFIRMED)">Confirmé</button>
+          <button type="button" class="status-button" (click)="changeStatus(match.id, matchStatus.COMPLETED)">Terminé</button>
+          <button type="button" class="status-button" (click)="changeStatus(match.id, matchStatus.CANCELLED)">Annulé</button>
+        </div>
+        <button type="button" class="btn-danger" (click)="deleteMatch(match.id)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noMatches>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center text-gray-600">Aucun match enregistré pour le moment.</div>
+  </ng-template>
+</div>

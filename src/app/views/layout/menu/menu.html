@@ -10,4 +10,8 @@
   <mat-icon aria-hidden="false">person</mat-icon>
   Utilisateur
 </a>
+<a *ngIf="isAdmin()" routerLink="/admin" mat-list-item>
+  <mat-icon aria-hidden="false">admin_panel_settings</mat-icon>
+  Admin
+</a>
 
