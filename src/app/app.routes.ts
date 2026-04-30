@@ -5,6 +5,7 @@ import { UserDashboard } from './views/user/user-dashboard';
 import { AdminDashboard } from './views/admin/admin-dashboard';
 import { MyReservations } from './views/user/my-reservations/my-reservations';
 import { PublicMatches } from './views/user/public-matches/public-matches';
+import { CreateMatch } from './views/user/create-match/create-match';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -16,7 +17,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'reservations', pathMatch: 'full' },
       { path: 'reservations', component: MyReservations },
-      { path: 'public-matches', component: PublicMatches }
+      { path: 'public-matches', component: PublicMatches },
+      { path: 'create-match', component: CreateMatch }
     ]
   },
   {

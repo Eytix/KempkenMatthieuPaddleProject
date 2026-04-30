@@ -1,0 +1,74 @@
+<div class="space-y-6">
+  <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+    <h2 class="text-2xl font-semibold mb-2">Créer un match</h2>
+    <p class="text-sm text-gray-600">Réservez un terrain avec des horaires de 1h30 et 15 minutes de pause.</p>
+  </div>
+
+  <div *ngIf="currentUser(); else signInNotice" class="grid gap-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 grid gap-5">
+      <div class="grid gap-3 sm:grid-cols-2">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Site</label>
+          <select class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" [(ngModel)]="selectedSiteId">
+            <option value="">Sélectionner un site</option>
+            <option *ngFor="let site of sites()" [value]="site.id">{{ site.name }} - {{ site.location }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Terrain</label>
+          <select class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" [(ngModel)]="selectedTerrainId" [disabled]="!selectedSiteId">
+            <option value="">Sélectionner un terrain</option>
+            <option *ngFor="let terrain of availableTerrains" [value]="terrain.id">{{ terrain.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Date</label>
+          <input type="date" class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" [min]="minBookingDate" [(ngModel)]="selectedDate" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Heure de début</label>
+          <select class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" [(ngModel)]="selectedStartTime" [disabled]="!availableTimes.length">
+            <option value="">Sélectionner une heure</option>
+            <option *ngFor="let time of availableTimes" [value]="time">{{ time }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Type</label>
+          <select class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" [(ngModel)]="matchType">
+            <option [value]="MatchType.PRIVATE">Privé</option>
+            <option [value]="MatchType.PUBLIC">Public</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid gap-3">
+        <label class="block text-sm font-medium text-gray-700">Joueurs additionnels (max 3)</label>
+        <div class="grid gap-2 sm:grid-cols-2">
+          <button *ngFor="let member of memberOptions" type="button" class="rounded-xl border px-4 py-3 text-left transition-colors duration-200" [class.border-indigo-600]="selectedPlayers.includes(member.id)" [class.bg-indigo-50]="selectedPlayers.includes(member.id)" (click)="togglePlayerSelection(member.id)">
+            <div class="font-semibold">{{ member.firstName }} {{ member.lastName }}</div>
+            <div class="text-sm text-gray-600">{{ member.id }} - {{ member.type }}</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-gray-600">Coût total : 60€ · Par joueur : 15€</p>
+        <button type="button" class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-3 text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50" [disabled]="!canCreate" (click)="createMatch()">
+          Créer le match
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-700">{{ successMessage }}</div>
+    </div>
+  </div>
+
+  <ng-template #signInNotice>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 text-gray-700">
+      <p class="font-semibold">Vous devez être connecté pour créer un match.</p>
+    </div>
+  </ng-template>
+</div>
