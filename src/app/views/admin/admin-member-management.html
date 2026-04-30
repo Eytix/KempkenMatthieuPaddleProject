@@ -1,0 +1,52 @@
+<div class="space-y-6">
+  <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+    <h2 class="text-2xl font-semibold mb-2">Gestion des membres</h2>
+    <p class="text-sm text-gray-600">Ajoutez ou supprimez des comptes membres depuis l’administration.</p>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
+      <h3 class="text-xl font-semibold">Créer un membre</h3>
+      <div class="grid gap-4">
+        <label class="block text-sm font-medium text-gray-700">Prénom</label>
+        <input class="input-field" type="text" [(ngModel)]="newMemberFirstName" placeholder="Luc" />
+
+        <label class="block text-sm font-medium text-gray-700">Nom</label>
+        <input class="input-field" type="text" [(ngModel)]="newMemberLastName" placeholder="Martin" />
+
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input class="input-field" type="email" [(ngModel)]="newMemberEmail" placeholder="luc@padel.com" />
+
+        <label class="block text-sm font-medium text-gray-700">Type de membre</label>
+        <select class="input-field" [(ngModel)]="newMemberType">
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+
+        <div *ngIf="newMemberType === MemberType.SITE">
+          <label class="block text-sm font-medium text-gray-700">ID du site</label>
+          <input class="input-field" type="text" [(ngModel)]="newMemberSiteId" placeholder="site-001" />
+        </div>
+
+        <button class="btn-primary" type="button" [disabled]="!canAddMember" (click)="addMember()">Ajouter le membre</button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
+      <h3 class="text-xl font-semibold">Membres existants</h3>
+      <div *ngIf="members().length; else noMembers" class="space-y-3">
+        <div *ngFor="let member of members()" class="rounded-2xl border border-gray-100 p-4 bg-slate-50">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div class="font-semibold">{{ member.firstName }} {{ member.lastName }}</div>
+              <div class="text-sm text-gray-600">{{ member.id }} · {{ member.type }} · {{ member.email }}</div>
+            </div>
+            <button class="btn-danger" type="button" (click)="removeMember(member.id)">Supprimer</button>
+          </div>
+        </div>
+      </div>
+      <ng-template #noMembers>
+        <div class="rounded-2xl border border-dashed border-gray-300 p-4 text-center text-sm text-gray-600">Aucun membre enregistré pour le moment.</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

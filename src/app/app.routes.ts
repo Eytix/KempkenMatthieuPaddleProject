@@ -8,6 +8,7 @@ import { PublicMatches } from './views/user/public-matches/public-matches';
 import { CreateMatch } from './views/user/create-match/create-match';
 import { AdminSiteManagement } from './views/admin/admin-site-management';
 import { AdminMatchManagement } from './views/admin/admin-match-management';
+import { AdminMemberManagement } from './views/admin/admin-member-management';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,7 +30,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'sites', pathMatch: 'full' },
       { path: 'sites', component: AdminSiteManagement },
-      { path: 'matches', component: AdminMatchManagement }
+      { path: 'matches', component: AdminMatchManagement },
+      { path: 'members', component: AdminMemberManagement }
     ]
   }
 ];
