@@ -41,7 +41,8 @@ export class CreateMatch {
   successMessage = '';
   errorMessage = '';
 
-  readonly cost = 60;
+  readonly totalCost = 60;
+  readonly costPerPlayer = 15;
   readonly maxPlayers = 3;
 
   get selectedSite() {
@@ -54,23 +55,6 @@ export class CreateMatch {
 
   get playersCount() {
     return 1 + this.selectedPlayers.length;
-  }
-
-  get costPerPlayer() {
-    const terrain = this.selectedTerrain;
-    if (!terrain) {
-      return 0;
-    }
-    const totalCost = (terrain.pricePerHour * 1.5) / this.playersCount;
-    return Math.round(totalCost * 100) / 100;
-  }
-
-  get totalCost() {
-    const terrain = this.selectedTerrain;
-    if (!terrain) {
-      return 0;
-    }
-    return Math.round(terrain.pricePerHour * 1.5 * 100) / 100;
   }
 
   get availableTerrains() {
