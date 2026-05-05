@@ -20,22 +20,49 @@
   </div>
 
   <ng-template #loginPanel>
-    <div class="mt-6 bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-      <h2 class="text-xl font-semibold mb-3">Choisissez un compte de test</h2>
-      <div class="grid gap-3 sm:grid-cols-3">
-        <button *ngFor="let user of users()" class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-left hover:bg-blue-100" (click)="login(user)">
-          <div class="font-semibold text-blue-800">{{ user.firstName }} {{ user.lastName }}</div>
-          <div class="text-sm text-gray-600">{{ user.id }} - {{ user.type }}</div>
+    <div class="mt-6 bg-white rounded-2xl p-6 shadow-sm border border-gray-200 max-w-2xl">
+      <h2 class="text-xl font-semibold mb-3">Connexion utilisateur</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Matricule</label>
+          <input type="text" class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="G0001, S0001, L0001 ou A0001" [(ngModel)]="loginIdentifier" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Mot de passe</label>
+          <input type="password" class="mt-1 block w-full rounded-xl border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Entrez votre mot de passe" [(ngModel)]="loginPassword" />
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <button class="rounded-xl bg-indigo-600 px-5 py-3 text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50" [disabled]="!loginIdentifier || !loginPassword" (click)="loginWithCredentials()">
+          Se connecter
+        </button>
+        <button class="rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100" type="button" (click)="showTestAccounts = !showTestAccounts">
+          {{ showTestAccounts ? 'Masquer' : 'Afficher' }} les comptes de test
         </button>
       </div>
 
-      <div class="mt-6">
-        <h3 class="text-lg font-semibold mb-3">Compte admin de test</h3>
-        <div class="grid gap-3 sm:grid-cols-3">
-          <button *ngFor="let admin of admins()" class="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-left hover:bg-indigo-100" (click)="login(admin)">
-            <div class="font-semibold text-indigo-800">{{ admin.firstName }} {{ admin.lastName }}</div>
-            <div class="text-sm text-gray-600">{{ admin.id }} - Admin</div>
-          </button>
+      <div *ngIf="loginError" class="mt-4 rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">{{ loginError }}</div>
+
+      <div *ngIf="showTestAccounts" class="mt-6 space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Comptes membres de test</h3>
+          <div class="grid gap-3 sm:grid-cols-3">
+            <button *ngFor="let user of users()" type="button" class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-left hover:bg-blue-100" (click)="login(user)">
+              <div class="font-semibold text-blue-800">{{ user.firstName }} {{ user.lastName }}</div>
+              <div class="text-sm text-gray-600">{{ user.id }} - {{ user.type }}</div>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Compte admin de test</h3>
+          <div class="grid gap-3 sm:grid-cols-3">
+            <button *ngFor="let admin of admins()" type="button" class="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-left hover:bg-indigo-100" (click)="login(admin)">
+              <div class="font-semibold text-indigo-800">{{ admin.firstName }} {{ admin.lastName }}</div>
+              <div class="text-sm text-gray-600">{{ admin.id }} - Admin</div>
+            </button>
+          </div>
         </div>
       </div>
     </div>

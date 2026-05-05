@@ -16,6 +16,7 @@ export class MemberService {
       email: 'john@paddel.com',
       firstName: 'John',
       lastName: 'Doe',
+      password: 'password1',
       phone: '+33612345678',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -27,6 +28,7 @@ export class MemberService {
       email: 'marie@paddel.com',
       firstName: 'Marie',
       lastName: 'Smith',
+      password: 'password2',
       phone: '+33687654321',
       siteId: 'site-001',
       createdAt: new Date(),
@@ -39,6 +41,7 @@ export class MemberService {
       email: 'free@paddel.com',
       firstName: 'Free',
       lastName: 'Player',
+      password: 'password3',
       createdAt: new Date(),
       updatedAt: new Date(),
       balance: 10

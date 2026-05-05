@@ -16,6 +16,7 @@ export class AdminService {
       email: 'admin@paddle.com',
       firstName: 'Admin',
       lastName: 'Test',
+      password: 'adminpass',
       createdAt: new Date(),
       updatedAt: new Date()
     }

@@ -9,6 +9,7 @@ export interface Member {
   email: string;
   firstName: string;
   lastName: string;
+  password?: string;
   phone?: string;
   siteId?: string;               // Obligatoire si type = SITE
   createdAt: Date;
@@ -124,6 +125,7 @@ export interface AdminUser {
   email: string;
   firstName: string;
   lastName: string;
+  password?: string;
   type: AdminType;               // GLOBAL ou SITE
   siteId?: string;               // Obligatoire si type = SITE
   createdAt: Date;
