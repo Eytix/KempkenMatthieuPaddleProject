@@ -53,7 +53,7 @@
               <div class="text-sm text-gray-600">{{ site.location }}</div>
             </div>
             <div class="flex items-center gap-3">
-              <span class="text-sm text-gray-600">{{ site.terrains.length }} terrain(s)</span>
+              <span class="text-sm text-gray-600">{{ getTerrainsBySite(site.id).length }} terrain(s)</span>
               <span class="text-lg text-indigo-600" [class.rotate-180]="isSiteExpanded(site.id)">⌄</span>
             </div>
           </button>
