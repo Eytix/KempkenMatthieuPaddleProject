@@ -62,7 +62,10 @@
       </div>
 
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-sm text-gray-600">Coût total : {{ cost }}€ · {{ costPerPlayer | number:'1.0-0' }}€ par joueur</p>
+        <div class="text-sm text-gray-600">
+          <div *ngIf="selectedTerrain">Prix terrain : {{ selectedTerrain.pricePerHour }}€ / heure</div>
+          <div *ngIf="selectedTerrain">Coût total (1h30) : {{ totalCost }}€ · {{ costPerPlayer | number:'1.0-0' }}€ par joueur</div>
+        </div>
         <button type="button" class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-3 text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50" [disabled]="!canCreate" (click)="createMatch()">
           Créer le match
         </button>
