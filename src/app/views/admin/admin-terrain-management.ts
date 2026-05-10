@@ -38,7 +38,7 @@ export class AdminTerrainManagement {
   });
 
   get canAddTerrain() {
-    return !!this.newTerrainName() && !!this.selectedSiteForTerrain() && !!this.newTerrainPrice();
+    return !!this.newTerrainName() && !!this.selectedSiteForTerrain();
   }
 
   getSiteName(siteId: string): string {
@@ -55,7 +55,7 @@ export class AdminTerrainManagement {
       siteId: this.selectedSiteForTerrain(),
       name: this.newTerrainName(),
       description: this.newTerrainDescription(),
-      pricePerHour: parseFloat(this.newTerrainPrice()),
+      pricePerHour: 60,
       createdAt: new Date(),
       updatedAt: new Date()
     };
