@@ -42,15 +42,15 @@
             <div *ngIf="getPaymentForMatch(match.id) as payment">
               <span class="font-semibold">Paiement :</span>
               <span [ngClass]="{
-                'text-green-700': payment.status === 'PAID',
-                'text-yellow-700': payment.status === 'PENDING',
-                'text-red-700': payment.status === 'FAILED'
+                'text-green-700': payment.status === paymentStatus.PAID,
+                'text-yellow-700': payment.status === paymentStatus.PENDING,
+                'text-red-700': payment.status === paymentStatus.FAILED
               }">{{ payment.status }}</span>
               · {{ payment.amount }}€
               · dû le {{ payment.dueDate.toDateString() }}
             </div>
           </div>
-          <button *ngIf="getPaymentForMatch(match.id)?.status === 'PENDING'" type="button" class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-3 text-white shadow-sm hover:bg-indigo-700" (click)="payPayment(getPaymentForMatch(match.id)!.id)">
+          <button *ngIf="getPaymentForMatch(match.id)?.status === paymentStatus.PENDING" type="button" class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-3 text-white shadow-sm hover:bg-indigo-700" (click)="payPayment(getPaymentForMatch(match.id)!.id)">
             Payer
           </button>
         </div>

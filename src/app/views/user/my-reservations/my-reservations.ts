@@ -23,6 +23,8 @@ export class MyReservations {
     return user ? this.matchService.getMatchesByMember(user.id)() : [];
   });
 
+  paymentStatus = PaymentStatus;
+
   getPaymentForMatch(matchId: string) {
     const user = this.currentUser();
     if (!user) {

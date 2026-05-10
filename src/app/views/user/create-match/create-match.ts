@@ -6,7 +6,7 @@ import { TerrainService } from '../../../services/terrain.service';
 import { MemberService } from '../../../services/member.service';
 import { MatchService } from '../../../services/match.service';
 import { AuthService } from '../../../services/auth.service';
-import { MemberType, MatchType, MatchStatus } from '../../../models/enums';
+import { MemberType, MatchType, MatchStatus, PaymentStatus } from '../../../models/enums';
 import { Match, Member } from '../../../models';
 
 @Component({
@@ -181,7 +181,7 @@ export class CreateMatch {
         memberId: member.id,
         member,
         status: 'CONFIRMED' as const,
-        paymentStatus: 'PENDING' as const
+        paymentStatus: PaymentStatus.PENDING
       },
       ...this.selectedPlayers.map(memberId => {
         const selected = this.memberService.getMemberById(memberId)();
@@ -189,7 +189,7 @@ export class CreateMatch {
           memberId: selected.id,
           member: selected,
           status: 'CONFIRMED' as const,
-          paymentStatus: 'PENDING' as const
+          paymentStatus: PaymentStatus.PENDING
         } : null;
       }).filter(Boolean) as any
     ];

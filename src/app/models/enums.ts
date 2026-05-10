@@ -10,10 +10,10 @@ export enum MatchType {
 }
 
 export enum MatchStatus {
-  PENDING = 'PENDING',           // En attente (privé incomplet ou paiement incomplet)
-  CONFIRMED = 'CONFIRMED',       // Confirmé (tous les paiements reçus)
-  COMPLETED = 'COMPLETED',       // Terminé
-  CANCELLED = 'CANCELLED'        // Annulé
+  PENDING = 'EN_ATTENTE',           // En attente (privé incomplet ou paiement incomplet)
+  CONFIRMED = 'CONFIRME',       // Confirmé (tous les paiements reçus)
+  COMPLETED = 'TERMINE',       // Terminé
+  CANCELLED = 'ANNULE'        // Annulé
 }
 
 export enum AdminType {
@@ -22,7 +22,7 @@ export enum AdminType {
 }
 
 export enum PaymentStatus {
-  PENDING = 'PENDING',
-  PAID = 'PAID',
-  FAILED = 'FAILED'
+  PENDING = 'EN_ATTENTE',
+  PAID = 'PAYE',
+  FAILED = 'ECHOUE'
 }

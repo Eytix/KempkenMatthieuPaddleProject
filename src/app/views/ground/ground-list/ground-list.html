@@ -1,23 +1,29 @@
 <div class="p-8 bg-gray-50 min-h-screen">
   <div class="max-w-6xl mx-auto">
     <h1 class="text-3xl font-bold text-gray-900 mb-2">Nos Terrains</h1>
-    <p class="text-gray-600 mb-8">Découvrez {{ groundService.groundCount() }} terrains disponibles</p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <mat-card *ngFor="let ground of grounds()" class="hover:shadow-lg transition-shadow">
-        <mat-card-header class="pb-4">
-          <mat-card-title class="text-lg">{{ ground.name }}</mat-card-title>
-          <mat-card-subtitle>{{ ground.location }}</mat-card-subtitle>
-        </mat-card-header>
-        
-        <mat-card-content class="pb-4">
-          <p class="text-2xl font-bold text-indigo-600">{{ ground.price }}€/h</p>
-        </mat-card-content>
-        
-        <mat-card-actions align="end">
-          <button mat-raised-button color="primary">Réserver</button>
-        </mat-card-actions>
-      </mat-card>
+    <p class="text-gray-600 mb-8">Découvrez {{ totalTerrains() }} terrains disponibles</p>
+
+    <div class="space-y-8">
+      <div *ngFor="let group of groupedTerrains()" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">{{ group.siteName }}</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <mat-card *ngFor="let terrain of group.terrains" class="hover:shadow-lg transition-shadow">
+            <mat-card-header class="pb-4">
+              <mat-card-title class="text-lg">{{ terrain.name }}</mat-card-title>
+              <mat-card-subtitle>{{ terrain.description }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content class="pb-4">
+              <p class="text-2xl font-bold text-indigo-600">{{ terrain.pricePerHour }}€/h</p>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+              <button mat-raised-button color="primary">Réserver</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
     </div>
   </div>
 </div>
