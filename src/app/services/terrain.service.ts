@@ -16,7 +16,8 @@ export class TerrainService {
       description: 'Terrain principal',
       pricePerHour: 60,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      terrainpic: 'padle_terrain2.jpeg'
     },
     {
       id: 'terrain-002',
@@ -25,7 +26,8 @@ export class TerrainService {
       description: 'Terrain secondaire',
       pricePerHour: 60,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      terrainpic: 'padle_terrain.jpg',
     },
     {
       id: 'terrain-003',
@@ -34,7 +36,8 @@ export class TerrainService {
       description: 'Terrain premium',
       pricePerHour: 60,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      terrainpic: 'padle_terrain.jpg',
     }
   ]);
 

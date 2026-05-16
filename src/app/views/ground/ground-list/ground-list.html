@@ -18,9 +18,14 @@
               <p class="text-2xl font-bold text-indigo-600">{{ terrain.pricePerHour }}€/h</p>
             </mat-card-content>
 
+            <div mat-card-image style="position:relative; width:100%; height:200px;">
+              <img [ngSrc]="terrain.terrainpic" alt="Terrain" fill style="object-fit: cover;">
+            </div>
+
             <mat-card-actions align="end">
               <button mat-raised-button color="primary">Réserver</button>
             </mat-card-actions>
+
           </mat-card>
         </div>
       </div>

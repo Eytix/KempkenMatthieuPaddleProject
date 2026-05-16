@@ -45,6 +45,7 @@ export interface Terrain {
   pricePerHour: number;          // Prix à l'heure (en euros)
   createdAt: Date;
   updatedAt: Date;
+  terrainpic: String;
 }
 
 /**

@@ -25,6 +25,8 @@ export class AdminTerrainManagement {
   newTerrainDescription = signal('');
   newTerrainPrice = signal('60');
   selectedSiteForTerrain = signal('');
+  newTerrainPic= signal('');
+
 
   sortedTerrains = computed(() => {
     const allTerrains = this.terrains();
@@ -57,7 +59,8 @@ export class AdminTerrainManagement {
       description: this.newTerrainDescription(),
       pricePerHour: 60,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      terrainpic: this.newTerrainPic(),
     };
 
     this.terrainService.addTerrain(terrain);
@@ -96,5 +99,6 @@ export class AdminTerrainManagement {
     this.newTerrainDescription.set('');
     this.newTerrainPrice.set('60');
     this.selectedSiteForTerrain.set('');
+    this.newTerrainPic.set('');
   }
 }

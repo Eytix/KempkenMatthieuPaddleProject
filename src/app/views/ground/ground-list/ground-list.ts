@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { TerrainService } from '../../../services/terrain.service';
@@ -8,7 +8,7 @@ import { SiteService } from '../../../services/site.service';
 @Component({
   selector: 'app-ground-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, NgOptimizedImage],
   templateUrl: './ground-list.html',
   styleUrls: ['./ground-list.css'],
 })
