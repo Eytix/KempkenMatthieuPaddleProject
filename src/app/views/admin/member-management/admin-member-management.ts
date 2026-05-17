@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MemberService } from '../../services/member.service';
-import { MemberType } from '../../models/enums';
-import { Member } from '../../models';
+import { MemberService } from '../../../services/member.service';
+import { MemberType } from '../../../models/enums';
+import { Member } from '../../../models';
 
 @Component({
   selector: 'app-admin-member-management',

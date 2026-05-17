@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaymentService } from '../../services/payment.service';
-import { PaymentStatus } from '../../models/enums';
+import { PaymentService } from '../../../services/payment.service';
+import { PaymentStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-admin-payment-management',

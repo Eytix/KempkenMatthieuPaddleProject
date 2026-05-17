@@ -1,10 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SiteService } from '../../services/site.service';
-import { TerrainService } from '../../services/terrain.service';
-import { Site } from '../../models';
-import { MemberType } from '../../models/enums';
+import { SiteService } from '../../../services/site.service';
+import { TerrainService } from '../../../services/terrain.service';
+import { Site } from '../../../models';
+import { MemberType } from '../../../models/enums';
 
 @Component({
   selector: 'app-admin-site-management',

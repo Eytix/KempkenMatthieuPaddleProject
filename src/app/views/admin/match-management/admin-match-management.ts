@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatchService } from '../../services/match.service';
-import { MatchStatus } from '../../models/enums';
+import { MatchService } from '../../../services/match.service';
+import { MatchStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-admin-match-management',

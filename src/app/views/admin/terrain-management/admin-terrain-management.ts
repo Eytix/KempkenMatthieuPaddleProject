@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TerrainService } from '../../services/terrain.service';
-import { SiteService } from '../../services/site.service';
-import { Terrain } from '../../models';
+import { TerrainService } from '../../../services/terrain.service';
+import { SiteService } from '../../../services/site.service';
+import { Terrain } from '../../../models';
 
 @Component({
   selector: 'app-admin-terrain-management',

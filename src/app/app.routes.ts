@@ -2,15 +2,15 @@ import { Routes } from '@angular/router';
 import {Home} from './views/home/home';
 import {GroundList} from './views/ground/ground-list/ground-list';
 import { UserDashboard } from './views/user/user-dashboard';
-import { AdminDashboard } from './views/admin/admin-dashboard';
+import { AdminDashboard } from './views/admin/dashboard/admin-dashboard';
 import { MyReservations } from './views/user/my-reservations/my-reservations';
 import { PublicMatches } from './views/user/public-matches/public-matches';
 import { CreateMatch } from './views/user/create-match/create-match';
-import { AdminSiteManagement } from './views/admin/admin-site-management';
-import { AdminTerrainManagement } from './views/admin/admin-terrain-management';
-import { AdminMatchManagement } from './views/admin/admin-match-management';
-import { AdminMemberManagement } from './views/admin/admin-member-management';
-import { AdminPaymentManagement } from './views/admin/admin-payment-management';
+import { AdminSiteManagement } from './views/admin/site-management/admin-site-management';
+import { AdminTerrainManagement } from './views/admin/terrain-management/admin-terrain-management';
+import { AdminMatchManagement } from './views/admin/match-management/admin-match-management';
+import { AdminMemberManagement } from './views/admin/member-management/admin-member-management';
+import { AdminPaymentManagement } from './views/admin/payment-management/admin-payment-management';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
