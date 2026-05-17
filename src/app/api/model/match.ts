@@ -15,5 +15,7 @@ export interface MatchDto {
     date?: string;
     startTime?: string;
     endTime?: string;
+    organizerId?: string;
+    type?: string;
 }
 

@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { SiteControllerService } from '../api/api/siteController.service';
 import { SiteDto } from '../api/model/site';
 
@@ -9,23 +9,44 @@ export class SiteService {
 
   private api = inject(SiteControllerService);
 
-  getAll() {
-    return this.api.getAll();
+  private sites = signal<SiteDto[]>([]);
+
+  allSites = computed(() => this.sites());
+
+  loadSites() {
+    this.api.getAll1().subscribe({
+      next: data => this.sites.set(data)
+    });
   }
 
-  getById(id: string) {
-    return this.api.getById(id);
+  getSiteById(id: string) {
+    return computed(() =>
+      this.sites().find(site => site.id === id)
+    );
   }
 
-  create(site: SiteDto) {
-    return this.api.create(site);
+  addSite(site: SiteDto) {
+    this.api.create1(site).subscribe({
+      next: created =>
+        this.sites.update(sites => [...sites, created])
+    });
   }
 
-  update(id: string, site: SiteDto) {
-    return this.api.update(id, site);
+  updateSite(id: string, site: SiteDto) {
+    this.api.update1(id, site).subscribe({
+      next: updated =>
+        this.sites.update(sites =>
+          sites.map(s => s.id === id ? updated : s)
+        )
+    });
   }
 
-  delete(id: string) {
-    return this.api._delete(id);
+  deleteSite(id: string) {
+    this.api.delete1(id).subscribe({
+      next: () =>
+        this.sites.update(sites =>
+          sites.filter(site => site.id !== id)
+        )
+    });
   }
 }

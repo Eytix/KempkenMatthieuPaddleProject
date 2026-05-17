@@ -14,6 +14,16 @@ export class AuthService {
 
   isAuthenticated = computed(() => this.currentUser() !== null);
 
+  isAdmin = computed(() => {
+    const user = this.currentUser();
+
+    if (!user) {
+      return false;
+    }
+
+    return user.role === 'ADMIN';
+  });
+
   login(identifier: string, password: string) {
 
     const body: LoginRequestDto = {
@@ -29,6 +39,11 @@ export class AuthService {
         console.log('Login failed');
       }
     });
+  }
+
+  loginWithCredentials(identifier: string, password: string) {
+    this.login(identifier, password);
+    return true;
   }
 
   logout() {

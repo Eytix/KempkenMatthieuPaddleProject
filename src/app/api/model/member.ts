@@ -15,5 +15,6 @@ export interface MemberDto {
     firstName?: string;
     lastName?: string;
     balance?: number;
+    siteId?: string;
 }
 

@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { MemberControllerService } from '../api/api/memberController.service';
 import { MemberDto } from '../api/model/member';
 
@@ -9,23 +9,69 @@ export class MemberService {
 
   private api = inject(MemberControllerService);
 
-  getAll() {
-    return this.api.getAll();
+  private members = signal<MemberDto[]>([]);
+
+  allMembers = computed(() => this.members());
+
+  loadMembers() {
+    this.api.getAll3().subscribe({
+      next: data => this.members.set(data)
+    });
   }
 
-  getById(id: string) {
-    return this.api.getById(id);
+  getMemberById(id: string) {
+    return computed(() =>
+      this.members().find(member => member.id === id)
+    );
   }
 
-  create(member: MemberDto) {
-    return this.api.create(member);
+  getMembersBySite(siteId: string) {
+    return computed(() =>
+      this.members().filter(member =>
+        member.siteId === siteId
+      )
+    );
   }
 
-  update(id: string, member: MemberDto) {
-    return this.api.update(id, member);
+  addMember(member: MemberDto) {
+    this.api.create3(member).subscribe({
+      next: created =>
+        this.members.update(members => [...members, created])
+    });
   }
 
-  delete(id: string) {
-    return this.api._delete(id);
+  updateMember(id: string, member: MemberDto) {
+    this.api.update3(id, member).subscribe({
+      next: updated =>
+        this.members.update(members =>
+          members.map(m => m.id === id ? updated : m)
+        )
+    });
+  }
+
+  deleteMember(id: string) {
+    this.api.delete3(id).subscribe({
+      next: () =>
+        this.members.update(members =>
+          members.filter(member => member.id !== id)
+        )
+    });
+  }
+
+  updateBalance(memberId: string, amount: number) {
+    this.members.update(members =>
+      members.map(member =>
+        member.id === memberId
+          ? {
+            ...member,
+            balance: (member.balance || 0) + amount
+          }
+          : member
+      )
+    );
+  }
+
+  applyPenalty(memberId: string) {
+    console.log('Penalty applied to', memberId);
   }
 }
