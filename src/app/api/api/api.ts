@@ -4,4 +4,6 @@ export * from './authController.service';
 import { AuthControllerService } from './authController.service';
 export * from './matchController.service';
 import { MatchControllerService } from './matchController.service';
-export const APIS = [AdminControllerService, AuthControllerService, MatchControllerService];
+export * from './memberController.service';
+import { MemberControllerService } from './memberController.service';
+export const APIS = [AdminControllerService, AuthControllerService, MatchControllerService, MemberControllerService];

@@ -1,103 +1,31 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Member } from '../models';
-import { MemberType } from '../models/enums';
+import { Injectable, inject } from '@angular/core';
+import { MemberControllerService } from '../api/api/memberController.service';
+import { MemberDto } from '../api/model/member';
 
-/**
- * MemberService - Gestion des membres
- */
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
-  private members = signal<Member[]>([
-    {
-      id: 'G0001',
-      type: MemberType.GLOBAL,
-      email: 'john@paddel.com',
-      firstName: 'John',
-      lastName: 'Doe',
-      password: 'password1',
-      phone: '+33612345678',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      balance: 500
-    },
-    {
-      id: 'S0001',
-      type: MemberType.SITE,
-      email: 'marie@paddel.com',
-      firstName: 'Marie',
-      lastName: 'Smith',
-      password: 'password2',
-      phone: '+33687654321',
-      siteId: 'site-001',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      balance: 15
-    },
-    {
-      id: 'L0001',
-      type: MemberType.FREE,
-      email: 'free@paddel.com',
-      firstName: 'Free',
-      lastName: 'Player',
-      password: 'password3',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      balance: 10
-    }
-  ]);
 
-  allMembers = computed(() => this.members());
+  private api = inject(MemberControllerService);
 
-  getMemberById(memberId: string) {
-    return computed(() => this.members().find(m => m.id === memberId));
+  getAll() {
+    return this.api.getAll();
   }
 
-  getMembersByType(type: MemberType) {
-    return computed(() => this.members().filter(m => m.type === type));
+  getById(id: string) {
+    return this.api.getById(id);
   }
 
-  getMembersBySite(siteId: string) {
-    return computed(() =>
-      this.members().filter(m => m.type === MemberType.SITE && m.siteId === siteId)
-    );
+  create(member: MemberDto) {
+    return this.api.create(member);
   }
 
-  addMember(member: Member) {
-    this.members.update(members => [...members, member]);
+  update(id: string, member: MemberDto) {
+    return this.api.update(id, member);
   }
 
-  updateMember(memberId: string, updates: Partial<Member>) {
-    this.members.update(members =>
-      members.map(m => m.id === memberId ? { ...m, ...updates, updatedAt: new Date() } : m)
-    );
-  }
-
-  updateBalance(memberId: string, amount: number) {
-    this.members.update(members =>
-      members.map(m =>
-        m.id === memberId
-          ? { ...m, balance: m.balance + amount, updatedAt: new Date() }
-          : m
-      )
-    );
-  }
-
-  applyPenalty(memberId: string) {
-    const penaltyEndDate = new Date();
-    penaltyEndDate.setDate(penaltyEndDate.getDate() + 7);
-
-    this.members.update(members =>
-      members.map(m =>
-        m.id === memberId
-          ? { ...m, lastReservationDateBlocked: penaltyEndDate, updatedAt: new Date() }
-          : m
-      )
-    );
-  }
-
-  deleteMember(memberId: string) {
-    this.members.update(members => members.filter(m => m.id !== memberId));
+  delete(id: string) {
+    return this.api._delete(id);
   }
 }

@@ -6,6 +6,7 @@ api/adminController.service.ts
 api/api.ts
 api/authController.service.ts
 api/matchController.service.ts
+api/memberController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -14,6 +15,7 @@ model/admin.ts
 model/loginRequest.ts
 model/loginResponse.ts
 model/match.ts
+model/member.ts
 model/models.ts
 param.ts
 provide-api.ts
