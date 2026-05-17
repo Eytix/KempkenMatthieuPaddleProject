@@ -8,4 +8,6 @@ export * from './memberController.service';
 import { MemberControllerService } from './memberController.service';
 export * from './payementController.service';
 import { PayementControllerService } from './payementController.service';
-export const APIS = [AdminControllerService, AuthControllerService, MatchControllerService, MemberControllerService, PayementControllerService];
+export * from './siteController.service';
+import { SiteControllerService } from './siteController.service';
+export const APIS = [AdminControllerService, AuthControllerService, MatchControllerService, MemberControllerService, PayementControllerService, SiteControllerService];
