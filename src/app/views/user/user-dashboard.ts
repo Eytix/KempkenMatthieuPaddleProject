@@ -1,11 +1,12 @@
-import { Component, computed, inject } from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MemberService } from '../../services/member.service';
-import { AdminService } from '../../services/admin.service';
 import { PaymentService } from '../../services/payment.service';
+import { AdminControllerService } from '../../api';
+import { AdminDto } from '../../api';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -15,9 +16,10 @@ import { PaymentService } from '../../services/payment.service';
   styleUrls: ['./user-dashboard.css']
 })
 export class UserDashboard {
+
   private authService = inject(AuthService);
   private memberService = inject(MemberService);
-  private adminService = inject(AdminService);
+  private adminApi = inject(AdminControllerService);
   private paymentService = inject(PaymentService);
 
   currentUser = this.authService.currentUser;
@@ -25,8 +27,11 @@ export class UserDashboard {
     const user = this.currentUser();
     return user && 'balance' in user ? user : null;
   });
+
+
   users = this.memberService.allMembers;
-  admins = this.adminService.allAdmins;
+  admins = signal<AdminDto[]>([]);
+
   isAuthenticated = this.authService.isAuthenticated;
   pendingPayments = computed(() => {
     const user = this.currentUser();

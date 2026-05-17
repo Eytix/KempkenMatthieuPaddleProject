@@ -4,11 +4,14 @@ api.base.service.ts
 api.module.ts
 api/adminController.service.ts
 api/api.ts
+api/authController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
 model/admin.ts
+model/loginRequest.ts
+model/loginResponse.ts
 model/models.ts
 param.ts
 provide-api.ts
