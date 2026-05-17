@@ -1,67 +1,35 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Terrain } from '../models';
+import { Injectable, inject } from '@angular/core';
+import { TerrainControllerService } from '../api/api/terrainController.service';
+import { TerrainDto } from '../api/model/terrain';
 
-/**
- * TerrainService - Gestion des terrains de padel
- */
 @Injectable({
   providedIn: 'root'
 })
 export class TerrainService {
-  private terrains = signal<Terrain[]>([
-    {
-      id: 'terrain-001',
-      siteId: 'site-001',
-      name: 'Terrain 1',
-      description: 'Terrain principal',
-      pricePerHour: 60,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      terrainpic: 'padle_terrain2.jpeg'
-    },
-    {
-      id: 'terrain-002',
-      siteId: 'site-001',
-      name: 'Terrain 2',
-      description: 'Terrain secondaire',
-      pricePerHour: 60,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      terrainpic: 'padle_terrain.jpg',
-    },
-    {
-      id: 'terrain-003',
-      siteId: 'site-002',
-      name: 'Terrain 1',
-      description: 'Terrain premium',
-      pricePerHour: 60,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      terrainpic: 'padle_terrain.jpg',
-    }
-  ]);
 
-  allTerrains = computed(() => this.terrains());
+  private api = inject(TerrainControllerService);
 
-  getTerrainsBySite(siteId: string) {
-    return computed(() => this.terrains().filter(t => t.siteId === siteId));
+  getAll() {
+    return this.api.getAll();
   }
 
-  getTerrainById(terrainId: string) {
-    return computed(() => this.terrains().find(t => t.id === terrainId));
+  getById(id: string) {
+    return this.api.getById(id);
   }
 
-  addTerrain(terrain: Terrain) {
-    this.terrains.update(terrains => [...terrains, terrain]);
+  getBySite(siteId: string) {
+    return this.api.getBySite(siteId);
   }
 
-  updateTerrain(terrainId: string, updates: Partial<Terrain>) {
-    this.terrains.update(terrains =>
-      terrains.map(t => t.id === terrainId ? { ...t, ...updates, updatedAt: new Date() } : t)
-    );
+  create(terrain: TerrainDto) {
+    return this.api.create(terrain);
   }
 
-  deleteTerrain(terrainId: string) {
-    this.terrains.update(terrains => terrains.filter(t => t.id !== terrainId));
+  update(id: string, terrain: TerrainDto) {
+    return this.api.update(id, terrain);
+  }
+
+  delete(id: string) {
+    return this.api._delete(id);
   }
 }

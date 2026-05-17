@@ -9,6 +9,7 @@ api/matchController.service.ts
 api/memberController.service.ts
 api/payementController.service.ts
 api/siteController.service.ts
+api/terrainController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -21,6 +22,7 @@ model/member.ts
 model/models.ts
 model/payement.ts
 model/site.ts
+model/terrain.ts
 param.ts
 provide-api.ts
 query.params.ts

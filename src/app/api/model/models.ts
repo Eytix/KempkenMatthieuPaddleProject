@@ -5,3 +5,4 @@ export * from './match';
 export * from './member';
 export * from './payement';
 export * from './site';
+export * from './terrain';
