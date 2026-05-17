@@ -42,7 +42,7 @@ export class MatchService {
   }
 
   deleteMatch(id: string) {
-    this.api._delete4(id).subscribe({
+    this.api.delete4(id).subscribe({
       next: () =>
         this.matches.update(matches =>
           matches.filter(m => m.id !== id)
