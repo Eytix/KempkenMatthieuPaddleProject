@@ -1,4 +1,7 @@
 package be.ephec.pdw.paddelspringboot.auth;
 
-public class LoginRequest {
+public record LoginRequest(
+        String identifier,
+        String password
+) {
 }
